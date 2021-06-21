@@ -4,7 +4,7 @@
     <type name="Magento\Framework\Console\CommandList">
         <arguments>
             <argument name="commands" xsi:type="array">
-                <item name="exampleSayHello" xsi:type="object">\Osio\ProductsMassDelete\Console\Index</item>
+                <item name="exampleSayHello" xsi:type="object">\Aliuosio\ProductsMassDelete\Console\Index</item>
             </argument>
         </arguments>
     </type>

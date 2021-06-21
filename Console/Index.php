@@ -1,6 +1,6 @@
 <?php
 
-namespace Osio\ProductsMassDelete\Console;
+namespace Aliuosio\ProductsMassDelete\Console;
 
 use Magento\Catalog\Model\Product\Attribute\Source\Status;
 use Magento\Catalog\Model\ResourceModel\Product\Collection;
@@ -45,8 +45,10 @@ class Index extends Command
      */
     protected function execute(InputInterface $input, OutputInterface $output)
     {
-        $output->writeln($this->getProductCollection()->delete()
-            ->count());
+        $output->writeln(
+            $this->getProductCollection()->delete()
+                ->count()
+        );
     }
 
     /**

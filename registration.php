@@ -2,4 +2,4 @@
 
 use Magento\Framework\Component\ComponentRegistrar;
 
-ComponentRegistrar::register(ComponentRegistrar::MODULE, 'Osio_ProductsMassDelete', __DIR__);
+ComponentRegistrar::register(ComponentRegistrar::MODULE, 'Aliuosio_ProductsMassDelete', __DIR__);
