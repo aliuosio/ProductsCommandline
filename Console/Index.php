@@ -16,7 +16,7 @@ class Index extends Command
 {
 
     /** @var string */
-    const NAME = 'osio:products';
+    const NAME = 'aliuosio:products:delete';
 
     /** @var CollectionFactory */
     private $productCollectionFactory;
@@ -36,7 +36,7 @@ class Index extends Command
 
     protected function configure()
     {
-        $this->setDescription('OSIO');
+        $this->setDescription('Delete all disabled products');
 
         parent::configure();
     }
@@ -57,8 +57,7 @@ class Index extends Command
     private function getProductCollection(): Collection
     {
         $collection = $this->productCollectionFactory->create();
-        $collection->addAttributeToFilter('status', ['in' => Status::STATUS_DISABLED])
-            ->addStoreFilter();
+        $collection->addAttributeToFilter('status', ['in' => Status::STATUS_DISABLED]);
 
         return $collection;
     }
