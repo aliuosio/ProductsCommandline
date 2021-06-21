@@ -3,7 +3,7 @@
 namespace Osio\ProductsMassDelete\Console;
 
 use Magento\Catalog\Model\Product\Attribute\Source\Status;
-use \Magento\Catalog\Model\ResourceModel\Product\Collection;
+use Magento\Catalog\Model\ResourceModel\Product\Collection;
 use Magento\Catalog\Model\ResourceModel\Product\CollectionFactory;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputInterface;
@@ -20,23 +20,15 @@ class Index extends Command
     private $productCollectionFactory;
 
     /**
-     * @var Status
-     */
-    private $productStatus;
-
-    /**
      * Index constructor.
      * @param CollectionFactory $productCollectionFactory
-     * @param Status $productStatus
      */
     public function __construct(
-        CollectionFactory $productCollectionFactory,
-        Status $productStatus
+        CollectionFactory $productCollectionFactory
     )
     {
         parent::__construct(self::NAME);
         $this->productCollectionFactory = $productCollectionFactory;
-        $this->productStatus = $productStatus;
     }
 
     protected function configure()
@@ -49,11 +41,12 @@ class Index extends Command
     /**
      * @param InputInterface $input
      * @param OutputInterface $output
-     * @return int|void|null
+     * @return void
      */
     protected function execute(InputInterface $input, OutputInterface $output)
     {
-        $output->writeln($this->getProductCollection()->count());
+        $output->writeln($this->getProductCollection()->delete()
+            ->count());
     }
 
     /**
