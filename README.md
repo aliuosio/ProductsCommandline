@@ -1,2 +1,3 @@
 ### delete all disabled products via commandline
-bin/m
+
+    bin/magento aliuosio:products:delete
