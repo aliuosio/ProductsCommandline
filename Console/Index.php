@@ -8,6 +8,7 @@ use Magento\Catalog\Model\ResourceModel\Product\CollectionFactory;
 use Magento\Framework\App\Area;
 use Magento\Framework\App\State;
 use Magento\Framework\Exception\LocalizedException;
+use Magento\Framework\Registry;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
@@ -24,14 +25,21 @@ class Index extends Command
     /** @var State */
     private $state;
 
+    /**
+     * @var Registry
+     */
+    private $registry;
+
     public function __construct(
         State $state,
-        CollectionFactory $productCollectionFactory
+        CollectionFactory $productCollectionFactory,
+        Registry $registry
     )
     {
         parent::__construct(self::NAME);
         $this->productCollectionFactory = $productCollectionFactory;
         $this->state = $state;
+        $this->registry = $registry;
     }
 
     protected function configure()
@@ -46,7 +54,11 @@ class Index extends Command
      */
     protected function execute(InputInterface $input, OutputInterface $output): void
     {
-        $this->state->setAreaCode(Area::AREA_FRONTEND);
+        $this->state->setAreaCode(Area::AREA_GLOBAL);
+        if ($this->registry->registry('isSecureArea') === null) {
+            $this->registry->register('isSecureArea', true);
+        }
+
         $output->writeln(
             $this->getProductCollection()
                 ->delete()
