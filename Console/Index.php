@@ -16,6 +16,10 @@ use Symfony\Component\Console\Output\OutputInterface;
 class Index extends Command
 {
 
+
+    /** @var int */
+    private $pageSize = 10;
+
     /** @var string */
     const NAME = 'aliuosio:products:delete';
 
@@ -24,18 +28,15 @@ class Index extends Command
 
     /** @var State */
     private $state;
-
-    /**
-     * @var Registry
-     */
+    
+    /*** @var Registry */
     private $registry;
 
     public function __construct(
         State $state,
         CollectionFactory $productCollectionFactory,
         Registry $registry
-    )
-    {
+    ) {
         parent::__construct(self::NAME);
         $this->productCollectionFactory = $productCollectionFactory;
         $this->state = $state;
@@ -49,21 +50,29 @@ class Index extends Command
         parent::configure();
     }
 
-    /**
-     * @throws LocalizedException
-     */
-    protected function execute(InputInterface $input, OutputInterface $output): void
+    protected function execute(InputInterface $input, OutputInterface $output)
     {
         $this->state->setAreaCode(Area::AREA_GLOBAL);
         if ($this->registry->registry('isSecureArea') === null) {
             $this->registry->register('isSecureArea', true);
         }
 
-        $output->writeln(
-            $this->getProductCollection()
-                ->delete()
-                ->count()
-        );
+        $this->delete($output);
+    }
+
+    private function delete(OutputInterface $output): bool
+    {
+        $this->getProductCollection()
+            ->setPageSize($this->pageSize)
+            ->setCurPage(1)
+            ->delete();
+
+        if (($this->getProductCollection())->count() > 0) {
+            $output->writeln("Products left to delete {$this->getProductCollection()->count()}");
+            return $this->delete($output);
+        }
+
+        return true;
     }
 
     private function getProductCollection(): Collection
