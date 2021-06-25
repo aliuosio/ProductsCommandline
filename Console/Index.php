@@ -16,7 +16,6 @@ use Symfony\Component\Console\Output\OutputInterface;
 class Index extends Command
 {
 
-
     /** @var int */
     private $pageSize = 250;
 
@@ -50,6 +49,9 @@ class Index extends Command
         parent::configure();
     }
 
+    /**
+     * @throws LocalizedException
+     */
     protected function execute(InputInterface $input, OutputInterface $output)
     {
         $this->state->setAreaCode(Area::AREA_GLOBAL);
