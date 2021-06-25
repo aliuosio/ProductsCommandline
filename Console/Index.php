@@ -18,7 +18,7 @@ class Index extends Command
 
 
     /** @var int */
-    private $pageSize = 10;
+    private $pageSize = 250;
 
     /** @var string */
     const NAME = 'aliuosio:products:delete';
