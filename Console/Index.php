@@ -27,7 +27,7 @@ class Index extends Command
 
     /** @var State */
     private $state;
-    
+
     /*** @var Registry */
     private $registry;
 
@@ -62,12 +62,14 @@ class Index extends Command
         $this->delete($output);
     }
 
+    /**
+     * @param OutputInterface $output
+     * @return bool
+     * @throws LocalizedException
+     */
     private function delete(OutputInterface $output): bool
     {
-        $this->getProductCollection()
-            ->setPageSize($this->pageSize)
-            ->setCurPage(1)
-            ->delete();
+        $this->getProductCollection()->delete();
 
         if (($this->getProductCollection())->count() > 0) {
             $output->writeln("Products left to delete {$this->getProductCollection()->count()}");
@@ -77,12 +79,17 @@ class Index extends Command
         return true;
     }
 
+    /**
+     * @return Collection
+     * @throws LocalizedException
+     */
     private function getProductCollection(): Collection
     {
-        $collection = $this->productCollectionFactory->create();
-        $collection->addAttributeToFilter('status', ['in' => Status::STATUS_DISABLED]);
-
-        return $collection;
+        return $this->productCollectionFactory->create()
+            ->addAttributeToSelect('*')
+            ->addAttributeToFilter('status', array('eq' => Status::STATUS_DISABLED))
+            ->setPageSize($this->pageSize)
+            ;
     }
 
 }
