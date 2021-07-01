@@ -5,10 +5,8 @@
   "type": "magento2-module",
   "require": {
     "magento/framework": "*"
-  },
-  "license": [
-    "Proprietary"
-  ],
+  },    
+  "license": "MIT",
   "autoload": {
     "files": [
       "registration.php"
