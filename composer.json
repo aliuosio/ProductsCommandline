@@ -1,6 +1,6 @@
 {
   "name": "aliuosio/products-mass-delete",
-  "version": "1.0.0",
+  "version": "0.1.0",
   "description": "Magento 2: Delete all disabled products via commandline",
   "type": "magento2-module",
   "require": {
