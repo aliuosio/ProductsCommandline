@@ -3,6 +3,7 @@
   "version": "0.2.0",
   "description": "Magento 2: Delete all disabled products via commandline",
   "type": "magento2-module",
+  "minimum-stability": "dev",
   "require": {
     "magento/framework": "*"
   },    
